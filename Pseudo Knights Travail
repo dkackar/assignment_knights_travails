@@ -1,0 +1,13 @@
+Pseudo Knights Travail
+
+
+	Setup game
+		Create a move struct
+		Create a movetree class
+			find all the possible positions available from root
+			add the root as the first node [3,3] include childs
+			for each child element check it's possible positions and create a node for them as well
+			don't include positions if it has been taken by a parent node
+			continue iteration until max depth is reached
+		end
+	end
