@@ -1,4 +1,4 @@
-Move = Struct.new(:pos, :depth, :child, :parent)
+Move = Struct.new(:pos, :depth, :children, :parent)
 
 class MoveTree
   POSSIBLE_POS = [[-1,2], [1,2], [2,1], [2,-1], [1,-2], [-1,-2], [-2,-1],[-2,1]]
@@ -25,16 +25,19 @@ class MoveTree
     
     #puts "Current node is #{current_node}"
     depth = current_node.depth + 1
+    if depth > @max_depth
+       return
+    end   
 
     possible_positions(pos).each do |valid_pos|
       child_move = Move.new(valid_pos,depth,[],current_node)
-      current_node.child << child_move
+      current_node.children << child_move
     end
 
-    current_node.child.each do |each_child|
-      
+    current_node.children.each do | kid|
+      #next if kid.depth == @max_depth
+      create_move(kid,kid.pos,kid.depth)
     end  
-
 
   end
 
@@ -51,5 +54,5 @@ class MoveTree
 end
 
 tree = MoveTree.new()
-tree.create_move([3,3], 1)
+tree.create_move([3,3], 5)
 print tree.root
